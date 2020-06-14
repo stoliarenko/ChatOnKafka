@@ -16,19 +16,19 @@ public enum ChatCommand {
      * Присоединиться к серверу.
      */
     @Nonnull
-    LOGIN("/connect "),
+    LOGIN("/connect"),
 
     /**
      * Отключиться от сервера.
      */
     @Nonnull
-    LOGOUT("/disconnect "),
+    LOGOUT("/disconnect"),
 
     /**
      * Личное сообщение.
      */
     @Nonnull
-    WHISPER("/w "),
+    WHISPER("/w"),
 
     /**
      * Выйти из чата.

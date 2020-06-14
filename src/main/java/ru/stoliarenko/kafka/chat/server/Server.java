@@ -8,6 +8,7 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import ru.stoliarenko.kafka.chat.constant.ChatCommand;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -92,6 +93,30 @@ public class Server {
      */
     private void processCommand(@Nonnull final ConsumerRecord<String, String> record) {
         //TODO implement.
+        final String[] enteredWords = record.value().split(" ");
+        final String command = enteredWords[0];
+        if (ChatCommand.LOGIN.getCommand().equals(command)) {
+            if (enteredWords.length < 2) {
+                sendPrivateMessage(record.key(), systemMessagePrefix, "Login is not specified.");
+                return;
+            }
+            processLoginCommand(record.key(), enteredWords[1]);
+        }
+    }
+
+    /**
+     * Обрабатывает команду подключения пользователя к чату.
+     *
+     * @param id - идентификатор пользователя.
+     * @param name - выбранное пользователем имя.
+     */
+    private void processLoginCommand(String id, String name) {
+        if (connectedUsers.containsValue(name)) {
+            sendPrivateMessage(id, systemMessagePrefix, "Name is already taken.");
+            return;
+        }
+        connectedUsers.put(id, name);
+        sendPrivateMessage(id, systemMessagePrefix, "Logged in as " + name);
     }
 
     /**
