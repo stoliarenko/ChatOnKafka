@@ -1,6 +1,8 @@
 package ru.stoliarenko.kafka.chat.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.stoliarenko.kafka.chat.enumeration.Role;
 
 import javax.annotation.Nonnull;
@@ -10,7 +12,10 @@ import java.util.Set;
 /**
  * Пользователь чата.
  */
-@Data
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "chat_user")
 public class User {
 
@@ -31,6 +36,7 @@ public class User {
      * Роль пользователя.
      */
     @Nonnull
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     /**

@@ -1,8 +1,11 @@
 package ru.stoliarenko.kafka.chat.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.annotation.Nonnull;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -12,7 +15,10 @@ import java.util.UUID;
 /**
  * Группа пользователей чата.
  */
-@Data
+@Getter
+@Setter
+@Entity
+@NoArgsConstructor
 @Table(name = "chat_user_group")
 public class UserGroup {
 
@@ -21,19 +27,19 @@ public class UserGroup {
      */
     @Id
     @Nonnull
-    private final String id = UUID.randomUUID().toString();
+    private String id = UUID.randomUUID().toString();
 
     /**
      * Имя группы.
      */
     @Nonnull
-    private final String name;
+    private String name;
 
     /**
      * Участники группы.
      */
     @Nonnull
     @ManyToMany(mappedBy = "groups")
-    private final Set<User> users;
+    private Set<User> users;
 
 }
