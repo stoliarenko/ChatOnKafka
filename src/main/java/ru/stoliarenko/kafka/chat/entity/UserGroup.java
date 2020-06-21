@@ -6,11 +6,9 @@ import lombok.Setter;
 
 import javax.annotation.Nonnull;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.Set;
-import java.util.UUID;
 
 /**
  * Группа пользователей чата.
@@ -20,14 +18,7 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor
 @Table(name = "chat_user_group")
-public class UserGroup {
-
-    /**
-     * Идентификатор группы.
-     */
-    @Id
-    @Nonnull
-    private String id = UUID.randomUUID().toString();
+public class UserGroup extends AbstractEntity {
 
     /**
      * Имя группы.

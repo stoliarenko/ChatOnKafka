@@ -17,14 +17,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Table(name = "chat_user")
-public class User {
-
-    /**
-     * Идентификатор пользователя.
-     */
-    @Id
-    @Nonnull
-    private String id;
+public class User extends AbstractEntity {
 
     /**
      * Имя пользователя.
