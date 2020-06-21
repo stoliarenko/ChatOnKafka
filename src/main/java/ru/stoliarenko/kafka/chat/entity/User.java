@@ -1,27 +1,48 @@
 package ru.stoliarenko.kafka.chat.entity;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.Data;
+import ru.stoliarenko.kafka.chat.enumeration.Role;
 
 import javax.annotation.Nonnull;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Пользователь чата.
  */
-@Getter
-@RequiredArgsConstructor
+@Data
+@Table(name = "chat_user")
 public class User {
 
     /**
      * Идентификатор пользователя.
      */
+    @Id
     @Nonnull
-    private final String id;
+    private String id;
 
     /**
      * Имя пользователя.
      */
     @Nonnull
-    private final String name;
+    private String name;
+
+    /**
+     * Роль пользователя.
+     */
+    @Nonnull
+    private Role role;
+
+    /**
+     * Группы в которых состоит пользователь.
+     */
+    @Nonnull
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "chat_user_and_group",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "group_id") }
+    )
+    private Set<UserGroup> groups;
     
 }
